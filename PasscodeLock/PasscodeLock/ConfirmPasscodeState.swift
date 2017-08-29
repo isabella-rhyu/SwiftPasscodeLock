@@ -15,7 +15,7 @@ struct ConfirmPasscodeState: PasscodeLockStateType {
     let isCancellableAction = true
     var isTouchIDAllowed = false
     
-    fileprivate var passcodeToConfirm: [String]
+    private var passcodeToConfirm: [String]
     
     init(passcode: [String]) {
         
@@ -24,12 +24,12 @@ struct ConfirmPasscodeState: PasscodeLockStateType {
         description = localizedStringFor("PasscodeLockConfirmDescription", comment: "Confirm passcode description")
     }
     
-    func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType) {
+    func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType) {
         
         if passcode == passcodeToConfirm {
             
-            lock.repository.savePasscode(passcode)
-            lock.delegate?.passcodeLockDidSucceed(lock)
+            lock.repository.savePasscode(passcode: passcode)
+            lock.delegate?.passcodeLockDidSucceed(lock: lock)
         
         } else {
             
@@ -38,8 +38,8 @@ struct ConfirmPasscodeState: PasscodeLockStateType {
             
             let nextState = SetPasscodeState(title: mismatchTitle, description: mismatchDescription)
             
-            lock.changeStateTo(nextState)
-            lock.delegate?.passcodeLockDidFail(lock)
+            lock.changeStateTo(state: nextState)
+            lock.delegate?.passcodeLockDidFail(lock: lock)
         }
     }
 }
