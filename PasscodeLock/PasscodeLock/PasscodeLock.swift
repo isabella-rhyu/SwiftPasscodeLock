@@ -31,13 +31,13 @@ open class PasscodeLock: PasscodeLockType {
     
     public init(state: PasscodeLockStateType, configuration: PasscodeLockConfigurationType) {
         
-        precondition(configuration.passcodeLength > 0, "Passcode length sould be greather than zero.")
+        precondition(configuration.passcodeLength > 0, "Passcode length should be greater than zero.")
         
         self.lockState = state
         self.configuration = configuration
     }
     
-    open func addSign(_ sign: String) {
+    open func addSign(sign: String) {
         
         passcode.append(sign)
         delegate?.passcodeLock(self, addedSignAtIndex: passcode.count - 1)
@@ -57,7 +57,7 @@ open class PasscodeLock: PasscodeLockType {
         delegate?.passcodeLock(self, removedSignAtIndex: passcode.count)
     }
     
-    open func changeStateTo(_ state: PasscodeLockStateType) {
+    open func changeStateTo(state: PasscodeLockStateType) {
         
         lockState = state
         delegate?.passcodeLockDidChangeState(self)
@@ -84,7 +84,7 @@ open class PasscodeLock: PasscodeLockType {
         }
     }
     
-    fileprivate func handleTouchIDResult(_ success: Bool) {
+    fileprivate func handleTouchIDResult(success: Bool) {
         
         DispatchQueue.main.async {
             
