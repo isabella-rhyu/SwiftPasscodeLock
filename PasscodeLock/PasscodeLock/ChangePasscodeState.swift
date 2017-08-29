@@ -21,7 +21,7 @@ struct ChangePasscodeState: PasscodeLockStateType {
         description = localizedStringFor("PasscodeLockChangeDescription", comment: "Change passcode description")
     }
     
-    func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType) {
+    func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType) {
         
         guard let currentPasscode = lock.repository.passcode else {
             return
@@ -31,11 +31,11 @@ struct ChangePasscodeState: PasscodeLockStateType {
             
             let nextState = SetPasscodeState()
             
-            lock.changeStateTo(nextState)
+            lock.changeStateTo(state: nextState)
             
         } else {
             
-            lock.delegate?.passcodeLockDidFail(lock)
+            lock.delegate?.passcodeLockDidFail(lock: lock)
         }
     }
 }
